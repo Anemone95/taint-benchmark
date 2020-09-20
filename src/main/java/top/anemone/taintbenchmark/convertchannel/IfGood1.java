@@ -1,4 +1,4 @@
-package top.anemone.taintbenchmark.intraprocedural;
+package top.anemone.taintbenchmark.convertchannel;
 
 
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/intraprocedural/IntraBad1")
-public class IntraBad1 extends HttpServlet {
+public class IfGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,6 +18,9 @@ public class IntraBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
+        if (!source.equals("hello world")) {
+            source = "hello world";
+        }
         out.println(source); // sink
     }
 }

@@ -12,3 +12,13 @@ taintbenchmark用于评估污点分析扫描器引擎的能力。
 * interprocedural：基本过程间分析能力
 * contextsensitive: 上下文敏感
 * fieldsensitive：域敏感
+
+
+# Source & Sink
+本benchmark只会出现以下sink点：
+## Source
+* javax.servlet.ServletRequest#getParameter
+## Sink
+* java.io.PrintWriter#println(java.lang.String)
+* org.apache.commons.exec.launcher.CommandLauncher#exec(org.apache.commons.exec.CommandLine, java.util.Map<java.lang.String,java.lang.String>, java.io.File)
+* java.lang.Runtime#exec(java.lang.String)

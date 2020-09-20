@@ -1,5 +1,9 @@
-package top.anemone.taintbenchmark.intraprocedural;
+package top.anemone.taintbenchmark.differentscope.thirdpartpkg;
 
+import top.anemone.taintbenchmarkdep.BadExecutor;
+import top.anemone.taintbenchmarkdep.ExeAgent1;
+import top.anemone.taintbenchmarkdep.Executor;
+import top.anemone.taintbenchmarkdep.GoodExecutor1;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/intraprocedural/IntraBad1")
-public class IntraBad1 extends HttpServlet {
+public class ExeGood1_1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,6 +22,10 @@ public class IntraBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
+        Executor e=new GoodExecutor1();
+        e.setcmd(source);
+        ExeAgent1 exeAgent1=new ExeAgent1();
+        exeAgent1.exe(e);
         out.println(source); // sink
     }
 }
