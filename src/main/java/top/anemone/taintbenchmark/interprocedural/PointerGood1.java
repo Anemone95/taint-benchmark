@@ -37,8 +37,9 @@ public class PointerGood1 extends HttpServlet {
         bad.next=c;
 
         good.next.setXss("clean");
+        Container p=bad;
 
         PrintWriter out = response.getWriter();
-        out.println(bad.next.getXss()); // sink
+        out.println(p.next.getXss()); // sink
     }
 }
