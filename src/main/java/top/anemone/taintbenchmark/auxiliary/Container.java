@@ -1,16 +1,16 @@
 package top.anemone.taintbenchmark.auxiliary;
 
-public class Clazz1 {
+public class Container {
     private String xss;
     private String clean;
+    public Container next;
 
-    public Clazz1(String xss, String clean) {
+
+    public Container(String xss, String clean) {
         this.xss = xss;
         this.clean = clean;
     }
-    public Clazz1() {
-        this.xss = xss;
-        this.clean = clean;
+    public Container() {
     }
 
     public String getXss() {

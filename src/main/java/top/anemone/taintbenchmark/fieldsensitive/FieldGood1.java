@@ -1,7 +1,7 @@
 package top.anemone.taintbenchmark.fieldsensitive;
 
 
-import top.anemone.taintbenchmark.auxiliary.Clazz1;
+import top.anemone.taintbenchmark.auxiliary.Container;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class FieldGood1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Clazz1 a = new Clazz1();
+        Container a = new Container();
         a.setXss(source);
         a.setClean("clean");
         PrintWriter out = response.getWriter();

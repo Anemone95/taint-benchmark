@@ -1,5 +1,4 @@
-package top.anemone.taintbenchmark.fieldsensitive;
-
+package top.anemone.taintbenchmark.contextsensitive;
 
 import top.anemone.taintbenchmark.auxiliary.Container;
 
@@ -10,19 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
-public class FieldBad1 extends HttpServlet {
+@WebServlet("/flow/ContextBad1")
+public class HeapGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
+        String clean = new String("clean");
+        Container bad=newContainer(source);
+        Container good=newContainer(clean);
+
         response.setContentType("text/html;");
-        Container a = new Container();
-        a.setXss(source);
-        a.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(a.getXss()); // sink
+        out.println(good.getXss()); // sink
+    }
+
+    private Container newContainer(String s) {
+        Container c = new Container(); //这里未做heap sensitive那么任何上下文指向的对象永远为o34
+        c.setXss(s);
+        return c;
     }
 }
