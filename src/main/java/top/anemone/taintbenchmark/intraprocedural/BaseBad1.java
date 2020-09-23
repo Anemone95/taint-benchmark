@@ -1,4 +1,4 @@
-package top.anemone.taintbenchmark.auxiliary;
+package top.anemone.taintbenchmark.intraprocedural;
 
 
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/intraprocedural/IntraBad1")
-public class BaseGood1 extends HttpServlet {
+public class BaseBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,9 +18,9 @@ public class BaseGood1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(good(source)); // sink
+        out.println(bad(source)); // sink
     }
-    private String good(String s){
-        return "good";
+    private String bad(String s){
+        return s;
     }
 }

@@ -28,4 +28,7 @@ public class Container {
     public void setClean(String clean) {
         this.clean = clean;
     }
+    public String getInfo(){
+        return this.xss;
+    }
 }
