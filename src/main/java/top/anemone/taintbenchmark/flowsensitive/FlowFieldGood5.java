@@ -11,20 +11,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/intraprocedural/IntraBad1")
-public class FlowFieldGood4 extends HttpServlet {
+public class FlowFieldGood5 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private Container c;
-
-
-    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        c=new Container(source,"boo");
-        c.setXss("clean");
+        Container fakeBad, fakeClean, tmp;
+        fakeBad=new Container(source,source);
+        fakeClean=new Container("clean","clean");
+        tmp=fakeBad;
+        fakeBad=fakeClean;
+        fakeClean=tmp;
         PrintWriter out = response.getWriter();
-        out.println(c.getXss()); // sink before taint
-        c.setXss(source);
+        out.println(fakeBad.xss); // get clean
+    }
+
+    public static void main(String[] args) {
+            String source = "xss";
+            Container clean, bad, tmp;
+            clean=new Container(source,source);
+            bad=new Container("clean","clean");
+            tmp=clean;
+            clean=bad;
+            bad=tmp;
+            System.out.println(clean.getXss());
     }
 }

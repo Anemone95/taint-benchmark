@@ -1,7 +1,6 @@
 package top.anemone.taintbenchmark.contextsensitive;
 
 import top.anemone.taintbenchmark.auxiliary.BadTransformer;
-import top.anemone.taintbenchmark.auxiliary.GoodConstructor;
 import top.anemone.taintbenchmark.auxiliary.GoodTransformer;
 import top.anemone.taintbenchmark.auxiliary.Transformer;
 
@@ -21,21 +20,20 @@ public class ContextBad1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Transformer bt=new BadTransformer();
-        Transformer gt=new GoodTransformer();
-        Transformer pbt=prettyTransformer(bt);
-        Transformer pgt=prettyTransformer(gt);
+        Transformer bt = new BadTransformer();
+        Transformer gt = new GoodTransformer();
+        Transformer pbt = id(bt);
+        Transformer pgt = id(gt);
 
         PrintWriter out = response.getWriter();
         out.println(pbt.transform(source)); // sink
     }
 
     /**
-     *
      * @param n=pbt,pgt
      * @return
      */
-    public Transformer prettyTransformer(Transformer n){
+    public Transformer id(Transformer n) {
         return n;
     }
 }

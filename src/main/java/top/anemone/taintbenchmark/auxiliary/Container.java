@@ -1,7 +1,7 @@
 package top.anemone.taintbenchmark.auxiliary;
 
 public class Container {
-    private String xss;
+    public String xss;
     private String clean;
     public Container next;
 

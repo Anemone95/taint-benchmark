@@ -32,6 +32,6 @@ public class FlowFieldBad5 extends HttpServlet {
         c.setXss(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(c.getInfo()); // sink before clean
+        out.println(c.getInfo()); // sink
     }
 }

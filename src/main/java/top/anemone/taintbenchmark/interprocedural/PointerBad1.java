@@ -25,13 +25,13 @@ public class PointerBad1 extends HttpServlet {
         Container c=new Container();
         c.setXss("clean");
 
-        Container good=new Container();
-        good.next=c;
+        Container fakeGood=new Container();
+        fakeGood.next=c;
         Container bad=new Container();
         bad.next=c;
 
         bad.next.setXss(source);
-        Container p=good;
+        Container p=fakeGood;
 
         PrintWriter out = response.getWriter();
         out.println(p.next.getXss()); // sink

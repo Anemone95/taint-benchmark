@@ -16,7 +16,7 @@ public class FlowBad4 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         String ret = source;
-        for (int i=0;i<2;i++){
+        for (int i=0;i<0;i++){
             ret = "clean";
         }
         response.setContentType("text/html;");
