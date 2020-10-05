@@ -1,9 +1,7 @@
 package top.anemone.taintbenchmark.flowsensitive;
 
 
-import top.anemone.taintbenchmark.auxiliary.BadContainer;
 import top.anemone.taintbenchmark.auxiliary.Container;
-import top.anemone.taintbenchmark.auxiliary.GoodContainer;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,25 +11,30 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/intraprocedural/IntraBad1")
-public class FlowFieldGood5 extends HttpServlet {
+public class FlowFieldGood6 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
-
-    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Container c;
-        int a = 31 + 1;
-        if (a != 32) {
-            c = new BadContainer();
-        } else {
-            c = new GoodContainer();
-        }
-        c.setXss(source);
-        c.setClean("clean");
+        Container fakeBad, fakeClean, tmp;
+        fakeBad=new Container(source,source);
+        fakeClean=new Container("clean","clean");
+        tmp=fakeBad;
+        fakeBad=fakeClean;
+        fakeClean=tmp;
         PrintWriter out = response.getWriter();
-        out.println(c.getInfo()); // sink
+        out.println(fakeBad.xss); // get clean
+    }
+
+    public static void main(String[] args) {
+            String source = "xss";
+            Container clean, bad, tmp;
+            clean=new Container(source,source);
+            bad=new Container("clean","clean");
+            tmp=clean;
+            clean=bad;
+            bad=tmp;
+            System.out.println(clean.getXss());
     }
 }

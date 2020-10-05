@@ -22,3 +22,9 @@ taintbenchmark用于评估污点分析扫描器引擎的能力。
 * java.io.PrintWriter#println(java.lang.String)
 * org.apache.commons.exec.launcher.CommandLauncher#exec(org.apache.commons.exec.CommandLine, java.util.Map<java.lang.String,java.lang.String>, java.io.File)
 * java.lang.Runtime#exec(java.lang.String)
+
+# TODO
+吸收DroidBench中Reflect和GeneralJava部分
+
+# 相似项目
+* https://github.com/secure-software-engineering/DroidBench: Android benchmark，本项目吸收了其中很多case，然而该项目是针对Android，有很多Android特性，相比而言本项目面向web，代码更加简单，在测试扫描器时建议结合droidbench(尤其是general java部分）。

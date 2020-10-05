@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+/**
+ * 最简单的污点分析模型，从request中读取内容并返回，造成xss
+ */
+@WebServlet("/intraprocedural/BaseBad1")
 public class BaseBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("xss"); // source
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
         out.println(bad(source)); // sink

@@ -16,6 +16,13 @@ public class PointerBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 未做域敏感或者未做指针分析
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String source = request.getParameter("xss");
