@@ -29,7 +29,7 @@ public class PointerBad1 extends HttpServlet {
         response.setContentType("text/html;");
 
         Container c=new Container();
-        c.setXss("clean");
+        c.setObj("clean");
 
         Container fakeGood=new Container();
         fakeGood.next=c;

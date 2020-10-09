@@ -1,9 +1,6 @@
 package top.anemone.taintbenchmark.contextsensitive;
 
-import top.anemone.taintbenchmark.auxiliary.BadTransformer;
-import top.anemone.taintbenchmark.auxiliary.Context;
-import top.anemone.taintbenchmark.auxiliary.GoodTransformer;
-import top.anemone.taintbenchmark.auxiliary.Transformer;
+import top.anemone.taintbenchmark.auxiliary.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/ContextGood1")
+@WebServlet("/ContextSensitive/ContextGood2")
+@SuppressWarnings("Duplicates")
 public class ContextGood2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -29,13 +27,14 @@ public class ContextGood2 extends HttpServlet {
         response.setContentType("text/html;");
         Transformer bt=new BadTransformer();
         Transformer gt=new GoodTransformer();
-        Context cbt=new Context();
-        cbt.setT(bt);
-        Context cgt=new Context();
-        cgt.setT(gt);
+
+        Container<Transformer> cbt=new Container<>();
+        cbt.setObj(bt);
+        Container<Transformer> cgt=new Container<>();
+        cgt.setObj(gt);
 
         PrintWriter out = response.getWriter();
-        out.println(cgt.getT().transform(source)); // sink
+        out.println(cgt.getObj().transform(source)); // 获取good transformer
     }
 
 }

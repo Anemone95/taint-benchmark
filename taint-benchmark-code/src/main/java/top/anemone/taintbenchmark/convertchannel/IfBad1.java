@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/convertchannel/IfBad1")
 public class IfBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

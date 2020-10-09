@@ -1,7 +1,7 @@
 package top.anemone.taintbenchmark.contextsensitive;
 
 import top.anemone.taintbenchmark.auxiliary.BadTransformer;
-import top.anemone.taintbenchmark.auxiliary.Context;
+import top.anemone.taintbenchmark.auxiliary.Container;
 import top.anemone.taintbenchmark.auxiliary.GoodTransformer;
 import top.anemone.taintbenchmark.auxiliary.Transformer;
 
@@ -12,30 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/ContextBad1")
+@WebServlet("/ContextSensitive/ContextGood3")
+@SuppressWarnings("Duplicates")
 public class ContextGood3 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 误报说明1-callsite
-     * @param request
-     * @param response
-     * @throws IOException
-     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         Transformer bt=new BadTransformer();
         Transformer gt=new GoodTransformer();
-        Context cbt=new Context();
-        cbt.setTT(bt);
-        Context cgt=new Context();
-        cgt.setTT(gt);
+        Container<Transformer> cbt=new Container<>();
+        cbt.setSetObj(bt);
+        Container<Transformer> cgt=new Container<>();
+        cgt.setSetObj(gt);
 
         PrintWriter out = response.getWriter();
-        out.println(cgt.getT().transform(source)); // sink
+        out.println(cgt.getObj().transform(source)); // 获取good transformer
     }
 
 }

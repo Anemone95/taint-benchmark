@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/flow/FlowFieldBad6")
 public class FlowFieldBad6 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -20,12 +20,12 @@ public class FlowFieldBad6 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Container inner;
-        Container outer;
-        Container good=new Container();
-        Container bad=new Container();
-        Container goodc=new Container();
-        Container badc=new Container();
+        Container<String> inner;
+        Container<Container<String>> outer;
+        Container<String> good=new Container<>();
+        Container<String> bad=new Container<>();
+        Container<Container<String>> goodc=new Container<>();
+        Container<Container<String>> badc=new Container<>();
         int a = 31 + 1;
         if (a == 32) {
             outer=badc;
@@ -34,9 +34,9 @@ public class FlowFieldBad6 extends HttpServlet {
             outer=goodc;
             inner=good;
         }
-        outer.next=inner;
-        inner.setXss(source);
+        outer.obj=inner;
+        inner.setObj(source);
         PrintWriter out = response.getWriter();
-        out.println(bad.getXss());
+        out.println(badc.getObj().getObj());
     }
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/ContextBad1")
+@WebServlet("/ContextSensitive/ContextBad1")
 public class ContextBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class ContextBad1 extends HttpServlet {
         Transformer pgt = id(gt);
 
         PrintWriter out = response.getWriter();
-        out.println(pbt.transform(source)); // sink
+        out.println(pbt.transform(source)); // 获取bad transformer
     }
 
     /**

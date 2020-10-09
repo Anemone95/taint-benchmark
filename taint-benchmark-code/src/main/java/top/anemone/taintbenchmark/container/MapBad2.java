@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/container/MapBad2")
 public class MapBad2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/ContextBad1")
+@WebServlet("/ContextSensitive/HeapGood1")
+@SuppressWarnings("Duplicates")
 public class HeapGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -23,12 +24,13 @@ public class HeapGood1 extends HttpServlet {
 
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(good.getXss()); // sink
+        out.println(good.getObj()); // sink
     }
 
+
     private Container newContainer(String s) {
-        Container c = new Container(); //这里未做heap sensitive那么任何上下文指向的对象永远为o34
-        c.setXss(s);
+        Container<String> c = new Container<>(); //这里未做heap sensitive那么任何上下文指向的对象永远为o34
+        c.setObj(s);
         return c;
     }
 }

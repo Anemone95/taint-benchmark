@@ -10,21 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/FieldSensitive/FieldBad3")
+@SuppressWarnings("Duplicates")
 public class FieldBad3 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private Container c;
+    private Container<String> c;
 
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        c=new Container();
-        c.setXss(source);
+        c=new Container<>();
+        c.setObj(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(c.getXss()); // sink
+        out.println(c.getObj()); // sink
     }
 }

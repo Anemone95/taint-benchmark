@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/ContextBad1")
+@WebServlet("/ContextSensitive/ContextGood1")
 public class ContextGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -21,21 +21,20 @@ public class ContextGood1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
 
-        Transformer bt=new BadTransformer();
-        Transformer gt=new GoodTransformer();
-        Transformer pbt=prettyTransformer(bt);
-        Transformer pgt=prettyTransformer(gt);
+        Transformer bt = new BadTransformer();
+        Transformer gt = new GoodTransformer();
+        Transformer pbt = id(bt);
+        Transformer pgt = id(gt);
 
         PrintWriter out = response.getWriter();
-        out.println(pgt.transform(source)); // sink
+        out.println(pgt.transform(source)); // 获取good transformer
     }
 
     /**
-     *
      * @param n=pbt,pgt
      * @return
      */
-    public Transformer prettyTransformer(Transformer n){
+    public Transformer id(Transformer n) {
         return n;
     }
 }

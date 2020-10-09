@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/implict/Interfacebad1")
+@WebServlet("/convertchannel/ExceptionBad2")
 public class ExceptionBad2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

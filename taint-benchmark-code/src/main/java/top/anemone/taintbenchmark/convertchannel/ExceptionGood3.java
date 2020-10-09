@@ -1,27 +1,33 @@
-package top.anemone.taintbenchmark.intraprocedural;
-
+package top.anemone.taintbenchmark.convertchannel;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * 如果该类被报出说明扫描器不存在污点分析
- */
-@WebServlet("/intraprocedural/IntraGood")
-public class IntraGood extends HttpServlet {
+
+@WebServlet("/convertchannel/ExceptionGood3")
+public class ExceptionGood3 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        source = "foo";
         response.setContentType("text/html;");
+        String ret = "success";
+
+        try {
+            FileInputStream file = new FileInputStream(source);
+        } catch (IOException f) { // Not valid!
+            ret = f.toString();
+        } finally {
+            ret = "success";
+        }
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        out.println(ret); // sink
     }
 }

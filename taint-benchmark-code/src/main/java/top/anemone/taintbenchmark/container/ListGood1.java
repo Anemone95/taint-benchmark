@@ -10,7 +10,10 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/intraprocedural/IntraBad1")
+/**
+ * 污点存储在列表的第0个元素中，sink点取出第1个元素，因此不存在漏洞
+ */
+@WebServlet("/container/ListGood1")
 public class ListGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

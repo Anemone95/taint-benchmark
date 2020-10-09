@@ -1,8 +1,8 @@
 package top.anemone.taintbenchmark.auxiliary;
 
-public class BadContainer extends Container{
+public class BadContainer<T> extends Container<T> {
 
-    public String getInfo() {
+    public T getInfo() {
         return super.getClean();
     }
 }

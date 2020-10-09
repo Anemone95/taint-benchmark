@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/FieldSensitive/FieldBad2")
+@SuppressWarnings("Duplicates")
 public class FieldBad2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -19,8 +20,8 @@ public class FieldBad2 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Container a = new Container(source,"clean");
+        Container<String> a = new Container<>(source,"clean");
         PrintWriter out = response.getWriter();
-        out.println(a.getXss()); // sink
+        out.println(a.getObj()); // sink
     }
 }

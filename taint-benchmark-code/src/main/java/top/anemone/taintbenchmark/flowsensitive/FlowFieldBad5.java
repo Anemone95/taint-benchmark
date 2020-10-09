@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/flow/FlowFieldBad5")
 public class FlowFieldBad5 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -22,14 +22,14 @@ public class FlowFieldBad5 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        Container c;
+        Container<String> c;
         int a = 31 + 1;
         if (a == 32) {
-            c = new BadContainer();
+            c = new BadContainer<>();
         } else {
-            c = new GoodContainer();
+            c = new GoodContainer<>();
         }
-        c.setXss(source);
+        c.setObj(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
         out.println(c.getInfo()); // sink

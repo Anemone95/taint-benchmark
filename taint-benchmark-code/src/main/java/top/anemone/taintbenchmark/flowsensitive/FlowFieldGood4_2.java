@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/flow/FlowFieldGood4_2")
 public class FlowFieldGood4_2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private Container c;
+    private Container<String> c;
 
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        c=new Container("foo","bar");
+        c=new Container<>("foo","bar");
         PrintWriter out = response.getWriter();
-        out.println(c.getXss()); // sink before taint
-        c.setXss(source);
+        out.println(c.getObj()); // sink before taint
+        c.setObj(source);
     }
 }

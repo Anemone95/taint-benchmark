@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 
-@WebServlet("/implict/Interfacebad1")
+@WebServlet("/convertchannel/ExceptionBad1")
 public class ExceptionBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/flow/FlowBad2")
+@WebServlet("/flow/FlowBad4")
 public class FlowBad4 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

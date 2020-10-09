@@ -1,5 +1,7 @@
-package top.anemone.taintbenchmark.intraprocedural;
+package top.anemone.taintbenchmark.flowsensitive;
 
+
+import top.anemone.taintbenchmark.auxiliary.Container;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,22 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * 最简单的污点分析模型，从request中读取内容并返回，造成xss
- */
-@WebServlet("/intraprocedural/BaseBad1")
-public class BaseBad1 extends HttpServlet {
+@WebServlet("/flow/FlowFieldBad4_2")
+@SuppressWarnings("Duplicates")
+public class FlowFieldBad4_2 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private Container<String> c;
+
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss"); // source
+        String source = request.getParameter("xss");
         response.setContentType("text/html;");
+        c=new Container<>(source,"boo");
+        c.setObj(source);
         PrintWriter out = response.getWriter();
-        out.println(bad(source)); // sink
-    }
-    private String bad(String s){
-        return s;
+        out.println(c.getObj()); // sink before clean
+        c.setObj("clean");
     }
 }
