@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 /**
  * 该类误报很可能扫描器使用CHA构建调用图
  */
-@WebServlet("/interprocedural/InterfaceGood1")
+@WebServlet("/IntraProcedural/ConstructGood1")
 public class ConstructGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

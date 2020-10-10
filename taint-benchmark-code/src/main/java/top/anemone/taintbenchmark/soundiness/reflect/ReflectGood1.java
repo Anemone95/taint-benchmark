@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-@WebServlet("/implict/InterfaceGood1")
+@WebServlet("/Soundiness/ReflectGood1")
 public class ReflectGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

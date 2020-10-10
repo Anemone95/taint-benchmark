@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/ThirdPart/CommonSinkBad1")
 public class CommonSinkBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

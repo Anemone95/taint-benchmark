@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
-public class BaseGood1 extends HttpServlet {
+@WebServlet("/InterProcedural/PrivateGood1")
+public class PrivateGood1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

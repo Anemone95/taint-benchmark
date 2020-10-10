@@ -11,8 +11,8 @@ import java.io.PrintWriter;
 /**
  * 最简单的污点分析模型，从request中读取内容并返回，造成xss
  */
-@WebServlet("/intraprocedural/BaseBad1")
-public class BaseBad1 extends HttpServlet {
+@WebServlet("/InterProcedural/PrivateBad1")
+public class PrivateBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

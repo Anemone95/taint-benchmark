@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/IntraProcedural/PointerBad1")
 public class PointerBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -28,18 +28,18 @@ public class PointerBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
 
-        Container c=new Container();
+        Container<String> c=new Container<>();
         c.setObj("clean");
 
-        Container fakeGood=new Container();
-        fakeGood.next=c;
-        Container bad=new Container();
-        bad.next=c;
+        Container<Container<String>> fakeGood=new Container<>();
+        fakeGood.obj=c;
+        Container<Container<String>> bad=new Container<>();
+        bad.obj=c;
 
-        bad.next.setXss(source);
-        Container p=fakeGood;
+        bad.obj.setObj(source);
+        Container<Container<String>> p=fakeGood;
 
         PrintWriter out = response.getWriter();
-        out.println(p.next.getXss()); // sink
+        out.println(p.obj.getObj()); // sink
     }
 }

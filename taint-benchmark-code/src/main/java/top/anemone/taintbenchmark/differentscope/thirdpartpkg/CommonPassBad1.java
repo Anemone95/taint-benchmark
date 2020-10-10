@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-@WebServlet("/intraprocedural/IntraBad1")
+@WebServlet("/ThirdPart/CommonPassBad1")
 public class CommonPassBad1 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

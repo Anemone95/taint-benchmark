@@ -19,7 +19,23 @@ taintbenchmark用于评估污点分析扫描器引擎的能力。
 
 ## Container
 
+<img src="README/image-20201010164412564.png" alt="image-20201010164412564" style="width:40%;" />
 
+Container包含容器（污染）字段obj和安全字段clean，有setObj()和setSetObj()方法设置obj，有getObjObj()，getObjObjObj()方法获取obj，GoodContainer和BadContainer继承Container，区别在于GoodContainer获取info为安全字段，Bad获取obj。
+
+## Passer
+
+<img src="README/image-20201010164818964.png" alt="image-20201010164818964" style="width:30%;" />
+
+BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回污点。
+
+## Transformer
+
+![image-20201010165207853](README/image-20201010165207853.png)
+
+* Transformer接口提供transform()方法；
+* BadTransformer和GoodTransformer实现该接口，GoodTransformer在方法中清洁污点；
+* BadConstructor和GoodConstructor实现该接口，在transform时返回s，GoodConstructor在初始化时清洁s。
 
 # 测试套件
 
@@ -56,29 +72,17 @@ taintbenchmark用于评估污点分析扫描器引擎的能力。
 ## 流敏感(top.anemone.taintbenchmark.flowsensitive.*)
 
 * FlowBad1：三目操作符，污点有可能传递，因此存在漏洞；
-
 * FlowBad2：if判断，污点有可能传递，因此存在漏洞；
-
 * FlowBad3：while循环，污点传递，因此存在漏洞；
-
 * FlowBad4：for循环，污点传递，因此存在漏洞；
-
 * FlowGood1：source和清洁变量交换，因此不存在漏洞；
-
 * FlowFieldBad4_1：source通过构造函数传入container的obj字段，再被sink调用，在调用后被清洁；
-
 * FlowFieldGood4_1：安全数据通过构造函数传入container的obj字段，再被sink调用，在调用后被污染；
-
 * FlowFieldBad4_2：source通过set()传入container的obj字段，再被sink调用，在调用后被清洁；
-
 * FlowFieldGood4_2：安全数据通过set()传入container的obj字段，再被sink调用，在调用后被污染；
-
 * FlowFieldBad5：当 a!=32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
-
 * FlowFieldGood5：当 a==32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
-
 * FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
-
 * FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
 
 ## 过程内分析（top.anemone.taintbenchmark.intraprocedural.*）
@@ -91,7 +95,28 @@ taintbenchmark用于评估污点分析扫描器引擎的能力。
 
 ## 过程间分析（top.anemone.taintbenchmark.interprocedural.*）
 
+* PrivateBad1：source通过私有函数bad()函数传递，在sink点调用；
+* PrivateGood1：source通过私有函数good()函数清除污点，在sink点调用；
+* StaticBad1：source通过静态函数bad()函数传递，在sink点调用；
+* StaticGood1：source通过静态函数good()函数清除污点，在sink点调用；
+* AbstractBad1/AbstractGood1：初始化BadPasser/GoodPasser传递污点，在sink点调用；
+* ConstructBad1/ConstructGood1：初始化BadConstructor/GoodConstructor传递污点，在sink点调用；
+* InterfaceBad1/InterfaceGood1：初始化BadTransformer/GoodTransformer传递污点，在sink点调用；
+* InterfaceBad2/InterfaceGood2：构造匿名transformer，匿名transformer传递/不传递污点，在sink点调用；
+* PointerBad1：构造Container c且c.obj->"clean"，构造Container fakeGood且fakeGood.obj->c，构造Container bad且bad.obj->c，将bad.obj.obj->source，并在sink点取fakeGood.obj.obj；
+* PointerGood1：构造Container c且c.obj->source；构造Container good，good.obj->c；构造Container bad，bad.obj->c；将good.obj.obj->"clean"，并在sink点取bad.obj.obj；
+## Soundiness
+### Reflect（top.anemone.taintbenchmark.soundiness.reflect.*）
+* ReflectBad1/ReflectGood1：构造BadTransformer/GoodTransformer，使用反射调用其transform方法，传入sink；
+* ReflectBad2/ReflectGood2：反射获取BadTransformer/GoodTransformer，使用反射调用其transform方法，传入sink；
 
+## 跨应用（top.anemone.taintbenchmark.differentscope.thirdpartpkg.*）
+* CommonPassBad1：污点通过org.apache.commons.exec.util.StringUtils#fixFileSeparatorChar()传递至sink；
+* CommonSinkBad1：污点通过org.apache.commons.exec.DefaultExecutor#execute(org.apache.commons.exec.CommandLine)执行；
+* ExeBad1：构造BadExecutor（Executor在另一模块中），污点传入BadExecutor后传入Runtime.exec()；
+* ExeGood1_1：构造GoodExecutor1，污点传入GoodExecutor1后在exe()中净化，不会传入Runtime.exec()；
+* ExeGood1_2：构造GoodExecutor2，污点传入GoodExecutor2后在getcmd()中被净化；
+* ExeBad2/ExeGood2：构造GoodExecutor2/GoodExecutor1为executor，构造ExeAgent2，将executor和污点传入Agent，Agent调用executor.exe()，造成/不造成漏洞；
 
 # Source & Sink
 
