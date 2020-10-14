@@ -39,29 +39,26 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 
 # 测试套件
 
-## 容器类型(top.anemone.taintbenchmark.container.*)
+## 过程内分析（top.anemone.taintbenchmark.intraprocedural.*）
 
-* ListBad1/ListGood1：污点存储在列表的第0个元素中，sink点取出第0/1个元素，因此存在/不存在漏洞；
-* MapBad1/MapGood1：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞；
-* MapBad2/MapGood2：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"xss"键保存在变量中（`String s="xss";map.put(s,taint)`）
+（这里只测试最简单的过程内分析，各类敏感情况由其他测试套件测试）
 
-## 上下文敏感(top.anemone.taintbenchmark.contextsensitive.*)
+* IntraBad1：从用户输入读取source，返回到页面上，存在XSS漏洞；
+* IntraGood1：从用户输入读取source，随后source被赋值为安全数据，返回到页面上，不存在XSS漏洞；
+* IntraBad2：从用户输入读取source，经过append()，replace()，返回到页面上，存在XSS漏洞；
 
-* ContextBad1/ContextGood1：同时初始化BadTransformer和GoodTransformer，并经过`id()`函数返回，在sink点调用`BadTransformer/GoodTransformer.transform(source)`，因此存在/不存在漏洞；
-* ContextBad2/ContextGood2：BadTransformer和GoodTransformer 经过Container包装后返回，获取Bad/GoodTransformer的结果，因此存在/不存在漏洞，与ContextBad/Good1不同的是该用例检测1-object sensitive；
-* ContextBad3/ContextGood3：类似ContextBad/Good2，与ContextBad2不同是的是setObj()进行了1次封装，用于检测2-CFA；
-* ContextBad4/ContextGood4：类似ContextBad/Good2，，与ContextBad2不同是的是setObj()进行了2次封装，用于检测3-CFA；
-* ContextBad5/ContextGood5：类似ContextBad/Good2，，与ContextBad2不同是的是getObj()中新建了Container，用于检测2-object sensitive；
-* ContextBad6/ContextGood6：类似ContextBad/Good2，，与ContextBad2不同是的是getObjObj()中新建了两次Container，用于检测3-object sensitive；
-* HeapBad1/HeapGood1：BadTransformer和GoodTransformer经过newContainer()包装后返回，获取Bad/GoodTransformer的结果，因此存在/不存在漏洞，检测Heap sensitive；
+## 过程间分析（top.anemone.taintbenchmark.interprocedural.*）
 
-## 隐藏信道(top.anemone.taintbenchmark.convertchannel.*)
-
-* ExceptionBad1：返回异常信息，由于异常信息中存在用户可控内容，因此存在漏洞；
-* ExceptionBad2/ExceptionGood2：返回自定义异常信息，由于异常信息中存在用户可控内容，因此存在漏洞；
-* ExceptionBad3：在catch处命中sink点，存在漏洞；
-* ExceptionGood3：在finally处清洁污点，不存在漏洞；
-* IfBad1/IfGood1：在if判断时对比输入是/否为"helloworld"，若是/否，将其赋值为"helloworld"，若能被成功赋值则不含漏洞；
+* PrivateBad1：source通过私有函数bad()函数传递，在sink点调用；
+* PrivateGood1：source通过私有函数good()函数清除污点，在sink点调用；
+* StaticBad1：source通过静态函数bad()函数传递，在sink点调用；
+* StaticGood1：source通过静态函数good()函数清除污点，在sink点调用；
+* AbstractBad1/AbstractGood1：初始化BadPasser/GoodPasser传递污点，在sink点调用；
+* ConstructBad1/ConstructGood1：初始化BadConstructor/GoodConstructor传递污点，在sink点调用；
+* InterfaceBad1/InterfaceGood1：初始化BadTransformer/GoodTransformer传递污点，在sink点调用；
+* InterfaceBad2/InterfaceGood2：构造匿名transformer，匿名transformer传递/不传递污点，在sink点调用；
+* PointerBad1：构造Container c且c.obj->"clean"，构造Container fakeGood且fakeGood.obj->c，构造Container bad且bad.obj->c，将bad.obj.obj->source，并在sink点取fakeGood.obj.obj；
+* PointerGood1：构造Container c且c.obj->source；构造Container good，good.obj->c；构造Container bad，bad.obj->c；将good.obj.obj->"clean"，并在sink点取bad.obj.obj；
 
 ## 域敏感(top.anemone.taintbenchmark.fieldsensitive.*)
 
@@ -85,26 +82,30 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
 * FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
 
-## 过程内分析（top.anemone.taintbenchmark.intraprocedural.*）
+## 上下文敏感(top.anemone.taintbenchmark.contextsensitive.*)
 
-（这里只测试最简单的过程内分析，各类敏感情况由其他测试套件测试）
+* ContextBad1/ContextGood1：同时初始化BadTransformer和GoodTransformer，并经过`id()`函数返回，在sink点调用`BadTransformer/GoodTransformer.transform(source)`，因此存在/不存在漏洞；
+* ContextBad2/ContextGood2：BadTransformer和GoodTransformer 经过Container包装后返回，获取Bad/GoodTransformer的结果，因此存在/不存在漏洞，与ContextBad/Good1不同的是该用例检测1-object sensitive；
+* ContextBad3/ContextGood3：类似ContextBad/Good2，与ContextBad2不同是的是setObj()进行了1次封装，用于检测2-CFA；
+* ContextBad4/ContextGood4：类似ContextBad/Good2，，与ContextBad2不同是的是setObj()进行了2次封装，用于检测3-CFA；
+* ContextBad5/ContextGood5：类似ContextBad/Good2，，与ContextBad2不同是的是getObj()中新建了Container，用于检测2-object sensitive；
+* ContextBad6/ContextGood6：类似ContextBad/Good2，，与ContextBad2不同是的是getObjObj()中新建了两次Container，用于检测3-object sensitive；
+* HeapBad1/HeapGood1：BadTransformer和GoodTransformer经过newContainer()包装后返回，获取Bad/GoodTransformer的结果，因此存在/不存在漏洞，检测Heap sensitive；
 
-* IntraBad1：从用户输入读取source，返回到页面上，存在XSS漏洞；
-* IntraGood1：从用户输入读取source，随后source被赋值为安全数据，返回到页面上，不存在XSS漏洞；
-* IntraBad2：从用户输入读取source，经过append()，replace()，返回到页面上，存在XSS漏洞；
+## 容器类型(top.anemone.taintbenchmark.container.*)
 
-## 过程间分析（top.anemone.taintbenchmark.interprocedural.*）
+* ListBad1/ListGood1：污点存储在列表的第0个元素中，sink点取出第0/1个元素，因此存在/不存在漏洞；
+* MapBad1/MapGood1：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞；
+* MapBad2/MapGood2：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"xss"键保存在变量中（`String s="xss";map.put(s,taint)`）
 
-* PrivateBad1：source通过私有函数bad()函数传递，在sink点调用；
-* PrivateGood1：source通过私有函数good()函数清除污点，在sink点调用；
-* StaticBad1：source通过静态函数bad()函数传递，在sink点调用；
-* StaticGood1：source通过静态函数good()函数清除污点，在sink点调用；
-* AbstractBad1/AbstractGood1：初始化BadPasser/GoodPasser传递污点，在sink点调用；
-* ConstructBad1/ConstructGood1：初始化BadConstructor/GoodConstructor传递污点，在sink点调用；
-* InterfaceBad1/InterfaceGood1：初始化BadTransformer/GoodTransformer传递污点，在sink点调用；
-* InterfaceBad2/InterfaceGood2：构造匿名transformer，匿名transformer传递/不传递污点，在sink点调用；
-* PointerBad1：构造Container c且c.obj->"clean"，构造Container fakeGood且fakeGood.obj->c，构造Container bad且bad.obj->c，将bad.obj.obj->source，并在sink点取fakeGood.obj.obj；
-* PointerGood1：构造Container c且c.obj->source；构造Container good，good.obj->c；构造Container bad，bad.obj->c；将good.obj.obj->"clean"，并在sink点取bad.obj.obj；
+## 隐藏信道(top.anemone.taintbenchmark.convertchannel.*)
+
+* ExceptionBad1：返回异常信息，由于异常信息中存在用户可控内容，因此存在漏洞；
+* ExceptionBad2/ExceptionGood2：返回自定义异常信息，由于异常信息中存在用户可控内容，因此存在漏洞；
+* ExceptionBad3：在catch处命中sink点，存在漏洞；
+* ExceptionGood3：在finally处清洁污点，不存在漏洞；
+* IfBad1/IfGood1：在if判断时对比输入是/否为"helloworld"，若是/否，将其赋值为"helloworld"，若能被成功赋值则不含漏洞；
+
 ## Soundiness
 ### Reflect（top.anemone.taintbenchmark.soundiness.reflect.*）
 * ReflectBad1/ReflectGood1：构造BadTransformer/GoodTransformer，使用反射调用其transform方法，传入sink；
