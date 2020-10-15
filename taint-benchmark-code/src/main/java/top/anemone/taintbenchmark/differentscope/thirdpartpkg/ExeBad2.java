@@ -18,11 +18,9 @@ public class ExeBad2 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
-        PrintWriter out = response.getWriter();
         Executor e=new GoodExecutor2();
         e.setcmd(source);
         ExeAgent2 exeAgent2=new ExeAgent2();
-        exeAgent2.exe(e,source);
-        out.println(source); // sink
+        exeAgent2.exe(e,source); //sink
     }
 }
