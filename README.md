@@ -66,22 +66,6 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FieldBad2/FieldGood2：污点和安全数据分别存在container的obj和clean字段（构造函数写入），在sink点取出obj/clean；
 * FieldBad3/FieldGood3：污点和安全数据分别存在container的obj和clean字段，container位于类的私有变量，在sink点取出obj/clean；
 
-## 流敏感(top.anemone.taintbenchmark.flowsensitive.*)
-
-* FlowBad1：三目操作符，污点有可能传递，因此存在漏洞；
-* FlowBad2：if判断，污点有可能传递，因此存在漏洞；
-* FlowBad3：while循环，污点传递，因此存在漏洞；
-* FlowBad4：for循环，污点传递，因此存在漏洞；
-* FlowGood1：source和清洁变量交换，因此不存在漏洞；
-* FlowFieldBad4_1：source通过构造函数传入container的obj字段，再被sink调用，在调用后被清洁；
-* FlowFieldGood4_1：安全数据通过构造函数传入container的obj字段，再被sink调用，在调用后被污染；
-* FlowFieldBad4_2：source通过set()传入container的obj字段，再被sink调用，在调用后被清洁；
-* FlowFieldGood4_2：安全数据通过set()传入container的obj字段，再被sink调用，在调用后被污染；
-* FlowFieldBad5：当 a!=32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
-* FlowFieldGood5：当 a==32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
-* FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
-* FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
-
 ## 上下文敏感(top.anemone.taintbenchmark.contextsensitive.*)
 
 * ContextBad1/ContextGood1：同时初始化BadTransformer和GoodTransformer，并经过`id()`函数返回，在sink点调用`BadTransformer/GoodTransformer.transform(source)`，因此存在/不存在漏洞；
@@ -91,6 +75,22 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * ContextBad5/ContextGood5：类似ContextBad/Good2，，与ContextBad2不同是的是getObj()中新建了Container，用于检测2-object sensitive；
 * ContextBad6/ContextGood6：类似ContextBad/Good2，，与ContextBad2不同是的是getObjObj()中新建了两次Container，用于检测3-object sensitive；
 * HeapBad1/HeapGood1：BadTransformer和GoodTransformer经过newContainer()包装后返回，获取Bad/GoodTransformer的结果，因此存在/不存在漏洞，检测Heap sensitive；
+
+## 流敏感(top.anemone.taintbenchmark.flowsensitive.*)
+
+* FlowBad1：三目操作符，污点有可能传递，因此存在漏洞；
+* FlowBad2：if判断，污点有可能传递，因此存在漏洞；
+* FlowBad3：while循环，污点传递，因此存在漏洞；
+* FlowBad4：for循环，污点传递，因此存在漏洞；
+* FlowGood1：source和清洁变量交换，因此不存在漏洞；
+* FlowFieldBad4_1：source通过构造函数传入container的obj字段，再被sink调用，在调用后被清洁；
+* FlowFieldGood4_1：安全数据通过构造函数传入container的obj字段后被set()清除，再被sink调用，在调用后被污染；
+* FlowFieldBad4_2：source通过set()传入container的obj字段，再被sink调用，在调用后被清洁；
+* FlowFieldGood4_2：安全数据通过set()传入container的obj字段，再被sink调用，在调用后被污染；
+* FlowFieldBad5：当 a!=32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
+* FlowFieldGood5：当 a==32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
+* FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
+* FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
 
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
@@ -130,7 +130,15 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * java.lang.Runtime#exec(java.lang.String)
 
 # TODO
+
 吸收DroidBench中Reflect和General Java部分
 
+# Limitation
+
+* 无法测试大规模程序
+  * 一些扫描器对函数调用深度、域敏感、上下文敏感深度有限制，本benchmark无法测试
+  * 对于大规模程序扫描时长本benchmark无法测试
+
 # 相似项目
+
 * https://github.com/secure-software-engineering/DroidBench: Android benchmark，本项目吸收了其中很多case，然而该项目是针对Android，有很多Android特性，相比而言本项目面向web，代码更加简单，在测试扫描器时建议结合droidbench(尤其是general java部分）。
