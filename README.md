@@ -82,7 +82,8 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowBad2：if判断，污点有可能传递，因此存在漏洞；
 * FlowBad3：while循环，污点传递，因此存在漏洞；
 * FlowBad4：for循环，污点传递，因此存在漏洞；
-* FlowGood1：source和清洁变量交换，因此不存在漏洞；
+* FlowBad5：source和清洁变量不交换，因此存在漏洞；
+* FlowGood5：source和清洁变量交换，因此不存在漏洞；
 * FlowFieldBad4_1：source通过构造函数传入container的obj字段，再被sink调用，在调用后被清洁；
 * FlowFieldGood4_1：安全数据通过构造函数传入container的obj字段后被set()清除，再被sink调用，在调用后被污染；
 * FlowFieldBad4_2：source通过set()传入container的obj字段，再被sink调用，在调用后被清洁；
@@ -90,6 +91,7 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowFieldBad5：当 a!=32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
 * FlowFieldGood5：当 a==32 时取BadContainer，否则取GoodContainer，再从Container.getInfo()中获取污点/安全数据；
 * FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
+* FlowFieldBad7：初始化装载source和安全数据的container，假交换，在sink点获取抓那个在source的container；
 * FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
 
 ## 容器类型(top.anemone.taintbenchmark.container.*)
