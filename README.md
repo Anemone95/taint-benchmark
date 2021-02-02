@@ -83,6 +83,8 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowBad3：while循环，污点传递，因此存在漏洞；
 * FlowBad4：for循环，污点传递，因此存在漏洞；
 * FlowBad5：source和清洁变量不交换，因此存在漏洞；
+* FlowBad6：循环清除污点，但终结时污点传递，因此存在漏洞；
+* FlowGood6：循环传递污点，但终结时清楚污点，因此存在漏洞；
 * FlowGood5：source和清洁变量交换，因此不存在漏洞；
 * FlowFieldBad4_1：source通过构造函数传入container的obj字段，再被sink调用，在调用后被清洁；
 * FlowFieldGood4_1：安全数据通过构造函数传入container的obj字段后被set()清除，再被sink调用，在调用后被污染；
