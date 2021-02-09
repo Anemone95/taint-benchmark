@@ -95,6 +95,8 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowFieldBad6：`outerContainer->badc; innerContainer->bad;outerContainer.obj->inner`，接着设置inner的obj为source，最后在sink获取badc.obj.obj(source)；
 * FlowFieldBad7：初始化装载source和安全数据的container，假交换，在sink点获取抓那个在source的container；
 * FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
+* FactoryBad1: 通过工厂方法获取BadTransformer，传递污点；
+* FactoryGood1: 通过工厂方法获取GoodTransformer，不传递污点；
 
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
