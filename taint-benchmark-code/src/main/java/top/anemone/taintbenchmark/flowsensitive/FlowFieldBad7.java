@@ -16,7 +16,7 @@ public class FlowFieldBad7 extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Container<String> bad, fakeClean, tmp;
         bad=new Container<>(source,source);
         fakeClean=new Container<>("clean","clean");

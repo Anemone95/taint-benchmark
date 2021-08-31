@@ -21,7 +21,7 @@ public class FlowFieldBad4_2 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         c=new Container<>(source,"boo");
         c.setObj(source);
         PrintWriter out = response.getWriter();

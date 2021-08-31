@@ -19,7 +19,7 @@ public class FactoryBad1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Transformer t = TransformerFactory.getTransformer("bad");
         PrintWriter out = response.getWriter();
         Runtime.getRuntime().exec(t.transform(source)); // sink

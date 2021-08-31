@@ -21,7 +21,7 @@ public class FlowBad2_2 extends HttpServlet {
         } else {
             ret=source;
         }
-        response.setContentType("text/html;");
+        
         PrintWriter out = response.getWriter();
         Runtime.getRuntime().exec(ret); // sink
     }

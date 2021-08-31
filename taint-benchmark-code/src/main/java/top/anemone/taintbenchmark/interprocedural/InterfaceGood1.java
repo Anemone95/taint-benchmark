@@ -21,7 +21,7 @@ public class InterfaceGood1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Transformer transformer=new GoodTransformer();
         source = transformer.transform(source);
         PrintWriter out = response.getWriter();

@@ -23,7 +23,7 @@ public class AbstractGood1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         BadPasser passer=new GoodPasser();
         source=passer.transform(source);
         PrintWriter out = response.getWriter();

@@ -18,7 +18,7 @@ public class ExceptionGood2 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         String ret = "success";
 
         try {

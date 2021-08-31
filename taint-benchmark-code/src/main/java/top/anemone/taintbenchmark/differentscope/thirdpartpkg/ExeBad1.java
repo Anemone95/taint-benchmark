@@ -19,7 +19,7 @@ public class ExeBad1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Executor e=new BadExecutor();
         e.setcmd(source);
         ExeAgent1 exeAgent1=new ExeAgent1();

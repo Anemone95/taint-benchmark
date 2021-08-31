@@ -26,7 +26,7 @@ public class PointerGood1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
 
         Container<String> c=new Container<>();
         c.setObj(source);

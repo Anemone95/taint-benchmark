@@ -19,7 +19,7 @@ public class FieldGood2 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Container<String> a = new Container<>(source,"clean");
         PrintWriter out = response.getWriter();
         Runtime.getRuntime().exec(a.getClean()); // sink

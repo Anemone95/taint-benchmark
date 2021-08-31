@@ -21,7 +21,7 @@ public class ReflectBad1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         try {
             Class clazz = BadTransformer.class;
             Transformer transformer = (Transformer) clazz.newInstance();

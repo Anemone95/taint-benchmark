@@ -21,7 +21,7 @@ public class FieldBad3 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         c=new Container<>();
         c.setObj(source);
         c.setClean("clean");

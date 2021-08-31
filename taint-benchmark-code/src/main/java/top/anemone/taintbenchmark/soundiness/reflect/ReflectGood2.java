@@ -20,7 +20,7 @@ public class ReflectGood2 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         try {
             Class clazz = Class.forName("top.anemone.taintbenchmark.auxiliary.GoodTransformer");
             Transformer transformer = (Transformer) clazz.newInstance();

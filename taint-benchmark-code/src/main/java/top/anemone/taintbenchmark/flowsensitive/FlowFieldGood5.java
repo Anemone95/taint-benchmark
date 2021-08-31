@@ -21,7 +21,7 @@ public class FlowFieldGood5 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Container<String> c;
         int a = 31 + 1;
         if (a != 32) {

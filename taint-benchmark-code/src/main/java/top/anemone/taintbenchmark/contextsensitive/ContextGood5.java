@@ -24,7 +24,7 @@ public class ContextGood5 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        
         Transformer bt=new BadTransformer();
         Transformer gt=new GoodTransformer();
         Container<Transformer> cbt=new Container<>();

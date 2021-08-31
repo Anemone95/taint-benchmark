@@ -16,7 +16,7 @@ public class FlowBad1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         source = request.getParameter("fromp").equals("true") ? source : "clean";
-        response.setContentType("text/html;");
+        
         PrintWriter out = response.getWriter();
         Runtime.getRuntime().exec(source); // sink
     }

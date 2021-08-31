@@ -19,7 +19,7 @@ public class FlowBad4 extends HttpServlet {
         for (int i=0;i<0;i++){
             ret = "clean";
         }
-        response.setContentType("text/html;");
+        
         PrintWriter out = response.getWriter();
         Runtime.getRuntime().exec(ret); // sink
     }
