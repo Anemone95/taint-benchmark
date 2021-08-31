@@ -21,7 +21,7 @@ public class InterfaceBad3 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("source");
         Sink sink=new BadSink();
         sink.execute(source);
     }

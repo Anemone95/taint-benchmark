@@ -19,7 +19,7 @@ public class MapGood1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("source");
         Map<String,String> map=new HashMap<>();
-        map.put("xss",source);
+        map.put("source",source);
         map.put("boo","bar");
         Runtime.getRuntime().exec(map.get("boo"));
     }

@@ -17,7 +17,7 @@ public class HeapGood1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("source");
         String clean = new String("clean");
         Container bad=newContainer(source);
         Container good=newContainer(clean);

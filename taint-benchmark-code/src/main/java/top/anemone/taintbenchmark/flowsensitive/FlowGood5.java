@@ -13,7 +13,7 @@ public class FlowGood5 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String fakeSource = request.getParameter("xss");
+        String fakeSource = request.getParameter("source");
         
         String fakeClean="clean";
         String tmp;

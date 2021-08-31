@@ -101,8 +101,8 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
 * ListBad1/ListGood1：污点存储在列表的第0个元素中，sink点取出第0/1个元素，因此存在/不存在漏洞；
-* MapBad1/MapGood1：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞；
-* MapBad2/MapGood2：污点存储在map的"xss"键中，sink点取出"xss"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"xss"键保存在变量中（`String s="xss";map.put(s,taint)`）
+* MapBad1/MapGood1：污点存储在map的"source"键中，sink点取出"source"/"boo"键，因此存在/不存在漏洞；
+* MapBad2/MapGood2：污点存储在map的"source"键中，sink点取出"source"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"source"键保存在变量中（`String s="source";map.put(s,taint)`）
 
 ## 隐藏信道(top.anemone.taintbenchmark.convertchannel.*)
 

@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet("/FieldSensitive/FieldGood1")
+@WebServlet("/FieldSensitive/FieldGood4")
 @SuppressWarnings("Duplicates")
-public class FieldGood1 extends HttpServlet {
+public class FieldGood4 extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("source");
-        
-        Container<String> a = new Container<>();
-        a.setObj(source);
-        a.setClean("clean");
-        
-        Runtime.getRuntime().exec(a.getClean()); // sink
+        Container<String> c=new Container<>();
+        Container<Container<String>> c2=new Container<>();
+        Container<Container<String>> c3;
+        c.setObj(source);
+        c2.setObj(c);
+        c3=c2;
+        c3.getObj().setObj("clean");
+
+        Runtime.getRuntime().exec(c2.getObj().getObj()); // sink
     }
 }

@@ -20,7 +20,7 @@ public class ConstructGood1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("source");
         
         Transformer constructor=new GoodConstructor(source);
         source = constructor.transform("nonce");

@@ -20,7 +20,7 @@ public class ContextGood3 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("source");
         
         Transformer bt=new BadTransformer();
         Transformer gt=new GoodTransformer();

@@ -17,7 +17,7 @@ public class RecursionBad1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss"); // source
+        String source = request.getParameter("source"); // source
         
         
         bad(source, out, 0);

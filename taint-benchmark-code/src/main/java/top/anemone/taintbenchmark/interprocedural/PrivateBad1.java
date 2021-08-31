@@ -18,7 +18,7 @@ public class PrivateBad1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss"); // source
+        String source = request.getParameter("source"); // source
         
         
         Runtime.getRuntime().exec(bad(source)); // sink

@@ -18,7 +18,7 @@ public class AbstractBad1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String source = request.getParameter("xss");
+        String source = request.getParameter("source");
         
         BadPasser passer=new BadPasser();
         source=passer.transform(source);
