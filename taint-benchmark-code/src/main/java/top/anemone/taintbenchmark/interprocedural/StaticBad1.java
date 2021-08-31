@@ -17,7 +17,7 @@ public class StaticBad1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(bad(source)); // sink
     }
     public static String bad(String s){

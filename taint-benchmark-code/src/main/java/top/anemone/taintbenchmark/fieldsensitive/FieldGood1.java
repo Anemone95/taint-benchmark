@@ -23,7 +23,7 @@ public class FieldGood1 extends HttpServlet {
         Container<String> a = new Container<>();
         a.setObj(source);
         a.setClean("clean");
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(a.getClean()); // sink
     }
 }

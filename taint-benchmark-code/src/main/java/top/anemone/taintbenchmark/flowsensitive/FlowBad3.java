@@ -22,7 +22,7 @@ public class FlowBad3 extends HttpServlet {
             cnt++;
         }
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(ret); // sink
     }
 }

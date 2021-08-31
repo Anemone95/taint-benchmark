@@ -24,7 +24,7 @@ public class ConstructGood1 extends HttpServlet {
         
         Transformer constructor=new GoodConstructor(source);
         source = constructor.transform("nonce");
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

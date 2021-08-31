@@ -24,7 +24,7 @@ public class FlowFieldBad4_2 extends HttpServlet {
         
         c=new Container<>(source,"boo");
         c.setObj(source);
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(c.getObj()); // sink before clean
         c.setObj("clean");
     }

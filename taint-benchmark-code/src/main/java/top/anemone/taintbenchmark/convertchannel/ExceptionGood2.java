@@ -27,7 +27,7 @@ public class ExceptionGood2 extends HttpServlet {
             ret = f.toString();
         }
 
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(ret); // sink
     }
 

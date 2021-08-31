@@ -24,7 +24,7 @@ public class ExceptionBad1 extends HttpServlet {
             ret=f.toString();
         }
 
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(ret); // sink
     }
 }

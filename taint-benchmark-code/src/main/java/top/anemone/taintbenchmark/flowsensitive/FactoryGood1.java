@@ -21,7 +21,7 @@ public class FactoryGood1 extends HttpServlet {
         String source = request.getParameter("xss");
         
         Transformer t = TransformerFactory.getTransformer("good");
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(t.transform(source)); // sink
     }
 }

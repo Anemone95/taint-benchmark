@@ -17,7 +17,7 @@ public class FlowBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         source = request.getParameter("fromp").equals("true") ? source : "clean";
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

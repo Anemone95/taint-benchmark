@@ -28,7 +28,7 @@ public class InterfaceBad2 extends HttpServlet {
             }
         };
         source = transformer.transform(source);
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

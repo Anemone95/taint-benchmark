@@ -29,7 +29,7 @@ public class ContextGood4 extends HttpServlet {
         Container<Transformer> cgt=new Container<>();
         cgt.setSetSetObj(gt);
 
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(cgt.getObj().transform(source)); // 获取good transformer
     }
 

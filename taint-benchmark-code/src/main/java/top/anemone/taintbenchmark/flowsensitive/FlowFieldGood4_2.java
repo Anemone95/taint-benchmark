@@ -22,7 +22,7 @@ public class FlowFieldGood4_2 extends HttpServlet {
         String source = request.getParameter("xss");
         
         c=new Container<>("foo","bar");
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(c.getObj()); // sink before taint
         c.setObj(source);
     }

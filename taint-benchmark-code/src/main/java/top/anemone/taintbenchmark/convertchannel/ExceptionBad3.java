@@ -22,7 +22,7 @@ public class ExceptionBad3 extends HttpServlet {
             ret=source;
             throw new RuntimeException();
         } catch (RuntimeException f) { // Not valid!
-            PrintWriter out = response.getWriter();
+            
             Runtime.getRuntime().exec(ret); // sink
         }
 

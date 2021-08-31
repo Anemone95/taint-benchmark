@@ -17,7 +17,7 @@ public class PrivateGood1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(good(source)); // sink
     }
     private String good(String s){

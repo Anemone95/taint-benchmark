@@ -17,7 +17,7 @@ public class IfGood1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
         
-        PrintWriter out = response.getWriter();
+        
         if (!source.equals("hello world")) {
             source = "hello world";
         }

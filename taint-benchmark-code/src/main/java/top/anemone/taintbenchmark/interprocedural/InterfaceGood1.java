@@ -24,7 +24,7 @@ public class InterfaceGood1 extends HttpServlet {
         
         Transformer transformer=new GoodTransformer();
         source = transformer.transform(source);
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

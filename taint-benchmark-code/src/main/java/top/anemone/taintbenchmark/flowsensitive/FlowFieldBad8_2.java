@@ -24,7 +24,7 @@ public class FlowFieldBad8_2 extends HttpServlet {
             bad.obj="Clean";
         }
             
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(bad.obj); // get clean
     }
 }

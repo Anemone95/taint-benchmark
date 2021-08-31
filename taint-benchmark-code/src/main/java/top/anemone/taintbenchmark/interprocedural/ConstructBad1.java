@@ -24,7 +24,7 @@ public class ConstructBad1 extends HttpServlet {
         
         Transformer constructor=new BadConstructor(source);
         source = constructor.transform("nonce");
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

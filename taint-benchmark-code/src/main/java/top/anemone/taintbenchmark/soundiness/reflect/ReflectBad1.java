@@ -27,7 +27,7 @@ public class ReflectBad1 extends HttpServlet {
             Transformer transformer = (Transformer) clazz.newInstance();
             Method m = clazz.getDeclaredMethod("transform", String.class);
             source = (String) m.invoke(transformer, source);
-            PrintWriter out = response.getWriter();
+            
             Runtime.getRuntime().exec(source); // sink
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();

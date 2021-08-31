@@ -23,7 +23,7 @@ public class HeapGood1 extends HttpServlet {
         Container good=newContainer(clean);
 
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(good.getObj()); // sink
     }
 

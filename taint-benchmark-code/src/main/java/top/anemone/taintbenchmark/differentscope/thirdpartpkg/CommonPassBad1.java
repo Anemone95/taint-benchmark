@@ -21,7 +21,7 @@ public class CommonPassBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         
         String res= StringUtils.fixFileSeparatorChar(source);
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(res); // sink
     }
 }

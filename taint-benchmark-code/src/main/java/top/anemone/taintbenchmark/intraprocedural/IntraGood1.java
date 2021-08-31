@@ -21,7 +21,7 @@ public class IntraGood1 extends HttpServlet {
         String source = request.getParameter("xss");
         source = "foo";
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(source); // sink
     }
 }

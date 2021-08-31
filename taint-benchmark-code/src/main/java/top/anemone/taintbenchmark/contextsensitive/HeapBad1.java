@@ -23,7 +23,7 @@ public class HeapBad1 extends HttpServlet {
         Container good=newContainer(clean);
 
         
-        PrintWriter out = response.getWriter();
+        
         Runtime.getRuntime().exec(bad.getObj()); // sink
     }
 
