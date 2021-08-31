@@ -22,6 +22,6 @@ public class FactoryBad1 extends HttpServlet {
         response.setContentType("text/html;");
         Transformer t = TransformerFactory.getTransformer("bad");
         PrintWriter out = response.getWriter();
-        out.println(t.transform(source)); // sink
+        Runtime.getRuntime().exec(t.transform(source)); // sink
     }
 }

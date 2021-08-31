@@ -26,6 +26,6 @@ public class FieldBad3 extends HttpServlet {
         c.setObj(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(c.getObj()); // sink
+        Runtime.getRuntime().exec(c.getObj()); // sink
     }
 }

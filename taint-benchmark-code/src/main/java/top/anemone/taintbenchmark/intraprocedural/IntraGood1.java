@@ -22,6 +22,6 @@ public class IntraGood1 extends HttpServlet {
         source = "foo";
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

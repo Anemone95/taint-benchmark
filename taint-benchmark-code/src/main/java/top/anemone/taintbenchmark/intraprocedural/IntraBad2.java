@@ -21,6 +21,6 @@ public class IntraBad2 extends HttpServlet {
         source=source.replace("1","2");
         source=source+1;
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

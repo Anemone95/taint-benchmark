@@ -22,6 +22,6 @@ public class FieldBad2 extends HttpServlet {
         response.setContentType("text/html;");
         Container<String> a = new Container<>(source,"clean");
         PrintWriter out = response.getWriter();
-        out.println(a.getObj()); // sink
+        Runtime.getRuntime().exec(a.getObj()); // sink
     }
 }

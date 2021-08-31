@@ -24,7 +24,7 @@ public class HeapGood1 extends HttpServlet {
 
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(good.getObj()); // sink
+        Runtime.getRuntime().exec(good.getObj()); // sink
     }
 
 

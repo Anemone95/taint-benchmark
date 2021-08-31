@@ -10,6 +10,6 @@ public class GoodSink implements Sink {
 
     @Override
     public void execute(String cmd) throws IOException {
-        System.out.println(cmd);
+        System.Runtime.getRuntime().exec(cmd);
     }
 }

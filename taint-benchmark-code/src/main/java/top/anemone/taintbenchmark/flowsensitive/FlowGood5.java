@@ -23,6 +23,6 @@ public class FlowGood5 extends HttpServlet {
         fakeClean=tmp;
 
         PrintWriter out = response.getWriter();
-        out.println(fakeSource); // get clean
+        Runtime.getRuntime().exec(fakeSource); // get clean
     }
 }

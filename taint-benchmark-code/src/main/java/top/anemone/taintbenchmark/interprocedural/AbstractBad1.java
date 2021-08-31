@@ -23,6 +23,6 @@ public class AbstractBad1 extends HttpServlet {
         BadPasser passer=new BadPasser();
         source=passer.transform(source);
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

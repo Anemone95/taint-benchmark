@@ -28,7 +28,7 @@ public class ContextBad6 extends HttpServlet {
         Container<Transformer> cgt=new Container<>();
 
         PrintWriter out = response.getWriter();
-        out.println(cbt.getObjObjObj(bt).transform(source)); // 获取bad transformer
+        Runtime.getRuntime().exec(cbt.getObjObjObj(bt).transform(source)); // 获取bad transformer
     }
 
 }

@@ -23,6 +23,6 @@ public class FlowBad5 extends HttpServlet {
         source=fakeClean;
 
         PrintWriter out = response.getWriter();
-        out.println(source); // get source
+        Runtime.getRuntime().exec(source); // get source
     }
 }

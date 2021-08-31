@@ -20,12 +20,10 @@ public class ListBad1 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        String source = request.getParameter("source");
         List<String> list=new LinkedList<>();
         list.add(source);
         list.add("nonce");
-        PrintWriter out = response.getWriter();
-        out.println(list.get(0)); // sink
+        Runtime.getRuntime().exec(list.get(0));
     }
 }

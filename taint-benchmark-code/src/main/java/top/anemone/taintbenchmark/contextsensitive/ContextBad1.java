@@ -19,14 +19,12 @@ public class ContextBad1 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("xss");
-        response.setContentType("text/html;");
         Transformer bt = new BadTransformer();
         Transformer gt = new GoodTransformer();
         Transformer pbt = id(bt);
         Transformer pgt = id(gt);
 
-        PrintWriter out = response.getWriter();
-        out.println(pbt.transform(source)); // 获取bad transformer
+        Runtime.getRuntime().exec(pbt.transform(source)); // 获取bad transformer
     }
 
     /**

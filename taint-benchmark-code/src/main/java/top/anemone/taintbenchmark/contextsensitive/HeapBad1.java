@@ -24,7 +24,7 @@ public class HeapBad1 extends HttpServlet {
 
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(bad.getObj()); // sink
+        Runtime.getRuntime().exec(bad.getObj()); // sink
     }
 
     private Container newContainer(String s) {

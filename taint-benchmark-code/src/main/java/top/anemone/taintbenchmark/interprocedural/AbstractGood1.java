@@ -27,6 +27,6 @@ public class AbstractGood1 extends HttpServlet {
         BadPasser passer=new GoodPasser();
         source=passer.transform(source);
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

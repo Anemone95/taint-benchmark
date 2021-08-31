@@ -17,13 +17,11 @@ public class MapBad2 extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String source = request.getParameter("xss");
-        response.setContentType("text/html;");
+        String source = request.getParameter("source");
         Map<String,String> map=new HashMap<>();
         String s="xss";
         map.put(s,source);
         map.put("boo","bar");
-        PrintWriter out = response.getWriter();
-        out.println(map.get(s)); // sink
+        Runtime.getRuntime().exec(map.get(s));
     }
 }

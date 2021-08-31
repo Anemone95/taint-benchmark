@@ -28,6 +28,6 @@ public class ExceptionGood3 extends HttpServlet {
             ret = "success";
         }
         PrintWriter out = response.getWriter();
-        out.println(ret); // sink
+        Runtime.getRuntime().exec(ret); // sink
     }
 }

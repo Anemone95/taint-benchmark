@@ -23,7 +23,7 @@ public class ExceptionBad3 extends HttpServlet {
             throw new RuntimeException();
         } catch (RuntimeException f) { // Not valid!
             PrintWriter out = response.getWriter();
-            out.println(ret); // sink
+            Runtime.getRuntime().exec(ret); // sink
         }
 
     }

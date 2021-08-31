@@ -18,6 +18,6 @@ public class FlowBad1 extends HttpServlet {
         source = request.getParameter("fromp").equals("true") ? source : "clean";
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

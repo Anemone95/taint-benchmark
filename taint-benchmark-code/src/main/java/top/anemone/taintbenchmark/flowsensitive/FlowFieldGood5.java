@@ -32,6 +32,6 @@ public class FlowFieldGood5 extends HttpServlet {
         c.setObj(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(c.getInfo()); // sink
+        Runtime.getRuntime().exec(c.getInfo()); // sink
     }
 }

@@ -37,6 +37,6 @@ public class PointerGood2 extends HttpServlet {
         c.obj="clean";
 
         PrintWriter out = response.getWriter();
-        out.println(good.obj.obj); // sink
+        Runtime.getRuntime().exec(good.obj.obj); // sink
     }
 }

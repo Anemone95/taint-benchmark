@@ -22,6 +22,6 @@ public class CommonPassBad1 extends HttpServlet {
         response.setContentType("text/html;");
         String res= StringUtils.fixFileSeparatorChar(source);
         PrintWriter out = response.getWriter();
-        out.println(res); // sink
+        Runtime.getRuntime().exec(res); // sink
     }
 }

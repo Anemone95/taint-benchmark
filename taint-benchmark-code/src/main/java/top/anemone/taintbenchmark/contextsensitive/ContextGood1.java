@@ -27,7 +27,7 @@ public class ContextGood1 extends HttpServlet {
         Transformer pgt = id(gt);
 
         PrintWriter out = response.getWriter();
-        out.println(pgt.transform(source)); // 获取good transformer
+        Runtime.getRuntime().exec(pgt.transform(source)); // 获取good transformer
     }
 
     /**

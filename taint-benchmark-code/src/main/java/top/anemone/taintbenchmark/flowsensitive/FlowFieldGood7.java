@@ -24,6 +24,6 @@ public class FlowFieldGood7 extends HttpServlet {
         fakeBad=fakeClean;
         fakeClean=tmp;
         PrintWriter out = response.getWriter();
-        out.println(fakeBad.obj); // get clean
+        Runtime.getRuntime().exec(fakeBad.obj); // get clean
     }
 }

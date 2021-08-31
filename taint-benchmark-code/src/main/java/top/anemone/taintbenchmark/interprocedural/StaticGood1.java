@@ -18,7 +18,7 @@ public class StaticGood1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(good(source)); // sink
+        Runtime.getRuntime().exec(good(source)); // sink
     }
     public static String good(String s){
         return "good";

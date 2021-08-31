@@ -21,6 +21,6 @@ public class IfBad1 extends HttpServlet {
         if (source.equals("hello world")) {
             source = "hello world";
         }
-        out.println(source); // sink
+        Runtime.getRuntime().exec(source); // sink
     }
 }

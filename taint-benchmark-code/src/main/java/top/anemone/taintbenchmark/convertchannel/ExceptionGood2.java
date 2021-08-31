@@ -28,7 +28,7 @@ public class ExceptionGood2 extends HttpServlet {
         }
 
         PrintWriter out = response.getWriter();
-        out.println(ret); // sink
+        Runtime.getRuntime().exec(ret); // sink
     }
 
     private String getString(String s) throws MyException {

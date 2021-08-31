@@ -26,6 +26,6 @@ public class RecursionBad1 extends HttpServlet {
     private void bad(String s, PrintWriter out, int l) {
         if (l>100) return;
         bad(s, out,l+1);
-        out.println(s); // sink
+        Runtime.getRuntime().exec(s); // sink
     }
 }

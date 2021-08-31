@@ -26,6 +26,6 @@ public class FieldGood3 extends HttpServlet {
         c.setObj(source);
         c.setClean("clean");
         PrintWriter out = response.getWriter();
-        out.println(c.getClean()); // sink
+        Runtime.getRuntime().exec(c.getClean()); // sink
     }
 }

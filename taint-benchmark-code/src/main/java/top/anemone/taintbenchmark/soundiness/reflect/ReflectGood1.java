@@ -28,7 +28,7 @@ public class ReflectGood1 extends HttpServlet {
             Method m = clazz.getDeclaredMethod("transform", String.class);
             source = (String) m.invoke(transformer, source);
             PrintWriter out = response.getWriter();
-            out.println(source); // sink
+            Runtime.getRuntime().exec(source); // sink
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ public class PrivateBad1 extends HttpServlet {
         String source = request.getParameter("xss"); // source
         response.setContentType("text/html;");
         PrintWriter out = response.getWriter();
-        out.println(bad(source)); // sink
+        Runtime.getRuntime().exec(bad(source)); // sink
     }
     private String bad(String s){
         return s;

@@ -40,6 +40,6 @@ public class PointerBad1 extends HttpServlet {
         Container<Container<String>> p=fakeGood;
 
         PrintWriter out = response.getWriter();
-        out.println(p.obj.getObj()); // sink
+        Runtime.getRuntime().exec(p.obj.getObj()); // sink
     }
 }

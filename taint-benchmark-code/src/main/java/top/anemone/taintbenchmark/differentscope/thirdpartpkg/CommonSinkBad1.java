@@ -24,6 +24,6 @@ public class CommonSinkBad1 extends HttpServlet {
         CommandLine cmd=CommandLine.parse(source);
         int i=new DefaultExecutor().execute(cmd);
         PrintWriter out = response.getWriter();
-        out.println(i); // sink
+        Runtime.getRuntime().exec(i); // sink
     }
 }
