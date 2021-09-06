@@ -11,7 +11,7 @@ import java.io.IOException;
 public class InputEngExecutor implements EngExecutor {
 
     @Override
-    public void exec(String[] in, String[] out) throws IOException {
-        out[0]=in[0];
+    public void exec(Container<String> container) throws IOException {
+        container.obj=container.getClean();
     }
 }

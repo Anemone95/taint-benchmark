@@ -1,7 +1,7 @@
 package top.anemone.taintbenchmark.auxiliary;
 
 public class Container<T> {
-    private T clean;
+    public T clean;
     public T obj;
 
 

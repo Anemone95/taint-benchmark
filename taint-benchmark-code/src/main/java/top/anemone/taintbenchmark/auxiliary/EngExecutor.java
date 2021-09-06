@@ -7,5 +7,5 @@ import java.io.IOException;
  * @date 2021/8/30 15:51
  */
 public interface EngExecutor {
-    void exec(String[] in, String[] out) throws IOException;
+    void exec(Container<String> container) throws IOException;
 }

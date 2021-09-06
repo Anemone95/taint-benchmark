@@ -9,7 +9,7 @@ import java.io.IOException;
 public class CommandEngExecutor implements EngExecutor {
 
     @Override
-    public void exec(String[] in, String[] out) throws IOException {
-        Runtime.getRuntime().exec(out[0]);
+    public void exec(Container<String> container) throws IOException {
+        Runtime.getRuntime().exec(container.obj);
     }
 }

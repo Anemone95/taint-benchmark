@@ -1,6 +1,7 @@
 package top.anemone.taintbenchmark.convertchannel;
 
 import top.anemone.taintbenchmark.auxiliary.CommandEngExecutor;
+import top.anemone.taintbenchmark.auxiliary.Container;
 import top.anemone.taintbenchmark.auxiliary.EngExecutor;
 import top.anemone.taintbenchmark.auxiliary.InputEngExecutor;
 
@@ -23,14 +24,14 @@ public class FlowEngineBad3 extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("source");
-        String[] input={source};
-        String[] out=new String[3];
+        Container<String> container=new Container<>();
+        container.clean=source;
         Map<String,EngExecutor> executorMap=new HashMap<>();
         executorMap.put("input", new InputEngExecutor());
         executorMap.put("command", new CommandEngExecutor());
         String[] seq={"input", "command"};
         for (String e : seq) {
-            executorMap.get(e).exec(input,out);
+            executorMap.get(e).exec(container);
         }
     }
 }
