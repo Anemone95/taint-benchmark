@@ -37,6 +37,22 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * BadTransformer和GoodTransformer实现该接口，GoodTransformer在方法中清洁污点；
 * BadConstructor和GoodConstructor实现该接口，在transform时返回s，GoodConstructor在初始化时清洁s。
 
+## Sink
+
+![image-20210918173747852](README/image-20210918173747852.png)
+
+* Sink 接口提供execute()方法;
+* BadSink 实现 SInk, 在execute()中进行命令执行;
+* GoodSink 实现 Sink, 在execute()中什么都不做. 
+
+## EngExecutor
+
+![image-20210918174110849](README/image-20210918174110849.png)
+
+* EngExecutor 接口提供exec方法, 操作Containter中数据, 实现一个简单的流引擎;
+* InputEngExecutor 实现EngExecutor, 将Controller.clean中数据复制给Container.obj;
+* CommandEngExecutor 实现EngExecutor, 将Controller.obj中数据作为命令执行.
+
 # 测试套件
 
 ## 过程内分析（top.anemone.taintbenchmark.intraprocedural.*）
@@ -101,8 +117,11 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
 * ListBad1/ListGood1：污点存储在列表的第0个元素中，sink点取出第0/1个元素，因此存在/不存在漏洞；
+* ListBad2: 污点存在列表的第1个元素中, 删除列表第0个元素, 再取第0个元素执行, 因此存在漏洞;
 * MapBad1/MapGood1：污点存储在map的"source"键中，sink点取出"source"/"boo"键，因此存在/不存在漏洞；
-* MapBad2/MapGood2：污点存储在map的"source"键中，sink点取出"source"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"source"键保存在变量中（`String s="source";map.put(s,taint)`）
+* MapBad2/MapGood2：污点存储在map的"source"键中，sink点取出"source"/"boo"键，因此存在/不存在漏洞，与MapBad1/MapGood1不同的是"source"键保存在变量中（`String s="source";map.put(s,taint)`）;
+* MapBad3: 污点首先存储在map, 再将map存储到map1中, 在sink点取出map1中污点, 因此存在漏洞;
+* MapBad4: 污点首先存在map, 再用遍历的方式将其存储在map1中, 在sink点取出map1中污点, 因此存在漏洞; 
 
 ## 隐藏信道(top.anemone.taintbenchmark.convertchannel.*)
 
@@ -111,6 +130,13 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * ExceptionBad3：在catch处命中sink点，存在漏洞；
 * ExceptionGood3：在finally处清洁污点，不存在漏洞；
 * IfBad1/IfGood1：在if判断时对比输入是/否为"helloworld"，若是/否，将其赋值为"helloworld"，若能被成功赋值则不含漏洞；
+* FlowEngineBad1: 先用InputEngExecutor将污点从container.clean移动到container.obj, 在用CommandEngExecutor执行container.obj;
+* FlowEngineBad2: 与FlowEngineBad1类似, 但使用数组和循环实现两个EngExecutor的调用逻辑;
+* FlowEngineBad3: 与FlowEngineBad1类似, 但使用Map和数组实现两个EngExecutor的调用逻辑;
+* FlowEngineBad4: 与FlowEngineBad1类似, 但使用数组和if条件实现两个EngExecutor的调用逻辑;
+* FlowEngineGood1: 与FlowEngineBad1类似, 但先调用CommandEngExecutor, 故没有漏洞
+* FlowEngineGood2: 与FlowEngineBad2 类似, 但先调用CommandEngExecutor, 故没有漏洞
+* FlowEngineGood4: 与 FlowEngineBad4 类似, 但先调用CommandEngExecutor, 故没有漏洞
 
 ## Soundiness
 ### Reflect（top.anemone.taintbenchmark.soundiness.reflect.*）
@@ -131,7 +157,6 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 ## Source
 * javax.servlet.ServletRequest#getParameter
 ## Sink
-* java.io.PrintWriter#println(java.lang.String)
 * org.apache.commons.exec.launcher.CommandLauncher#exec(org.apache.commons.exec.CommandLine, java.util.Map<java.lang.String,java.lang.String>, java.io.File)
 * java.lang.Runtime#exec(java.lang.String)
 

@@ -12,6 +12,6 @@ public class InputEngExecutor implements EngExecutor {
 
     @Override
     public void exec(Container<String> container) throws IOException {
-        container.obj=container.getClean();
+        container.obj=container.clean;
     }
 }
