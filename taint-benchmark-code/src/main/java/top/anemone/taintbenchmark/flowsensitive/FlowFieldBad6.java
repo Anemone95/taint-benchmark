@@ -36,7 +36,6 @@ public class FlowFieldBad6 extends HttpServlet {
         }
         outer.obj=inner;
         inner.setObj(source);
-        
         Runtime.getRuntime().exec(badc.getObj().getObj());
     }
 }

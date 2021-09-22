@@ -24,7 +24,6 @@ public class FlowGood6 extends HttpServlet {
             }
             ret = source;
         }
-        
         Runtime.getRuntime().exec(source); // sink
     }
 }

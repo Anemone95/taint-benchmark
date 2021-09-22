@@ -24,7 +24,6 @@ public class FlowBad6 extends HttpServlet {
             }
             ret = "clean";
         }
-        
         Runtime.getRuntime().exec(source); // sink
     }
 }

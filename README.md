@@ -151,6 +151,9 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * ExeGood1_2：构造GoodExecutor2，污点传入GoodExecutor2后在getcmd()中被净化；
 * ExeBad2/ExeGood2：构造GoodExecutor2/GoodExecutor1为executor，构造ExeAgent2，将executor和污点传入Agent，Agent调用executor.exe()，造成/不造成漏洞；
 
+## 多线程
+* ThreadBad1：存在两个线程ContentWriter和RespWriter，污点通过ContentWriter写入cache，再由RespWriter调用sink；
+
 # Source & Sink
 
 本benchmark只会出现以下source&sink点：
