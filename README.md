@@ -69,12 +69,12 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * PrivateGood1：source通过私有函数good()函数清除污点，在sink点调用；
 * StaticBad1：source通过静态函数bad()函数传递，在sink点调用；
 * StaticGood1：source通过静态函数good()函数清除污点，在sink点调用；
-* StaticBad2: 
+* StaticBad2:  source通过静态函数BadStaticSink#execute()函数传递，在sink点调用；
 * AbstractBad1/AbstractGood1：初始化BadPasser/GoodPasser传递污点，在sink点调用；
 * ConstructBad1/ConstructGood1：初始化BadConstructor/GoodConstructor传递污点，在sink点调用；
 * InterfaceBad1/InterfaceGood1：初始化BadTransformer/GoodTransformer传递污点，在sink点调用；
 * InterfaceBad2/InterfaceGood2：构造匿名transformer，匿名transformer传递/不传递污点，在sink点调用；
-* InterfaceBad3/InterfaceGood3: 
+* InterfaceBad3/InterfaceGood3:  初始化 BadSink/GoodSink，实例化的sink决定是否有漏洞； 
 * PointerBad1：构造Container c且c.obj->"clean"，构造Container fakeGood且fakeGood.obj->c，构造Container bad且bad.obj->c，将bad.obj.obj->source，并在sink点取fakeGood.obj.obj；
 * PointerGood1：构造Container c且c.obj->source；构造Container good，good.obj->c；构造Container bad，bad.obj->c；将good.obj.obj->"clean"，并在sink点取bad.obj.obj；
 
@@ -117,10 +117,10 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FactoryGood1: 通过工厂方法获取GoodTransformer，不传递污点；
 
 ## 路径敏感
- 
-BadNumPath1/GoodNumPath1: Non-linear Mixed Boolean-Arithmetic Expressions
-BadNumPath2/GoodNumPath2:
-BadStrPath2/GoodStrPath2:
+
+* BadNumPath1/GoodNumPath1:  若线性布尔算数表达式（Linear Boolean-Arithmetic Expression）为假则调用sink or 直接返回，注意该表达式永为 false；
+* BadNumPath2/GoodNumPath2: 若非线性布尔算数表达式（Non-linear Mixed Boolean-Arithmetic Expressions）为真则调用sink or 直接返回，注意该表达式永为true；
+* BadStrPath2/GoodStrPath2: 若字符串布尔表达式为真则调用sink or 直接返回， 注意该表达式永为 true；
 
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
@@ -142,9 +142,9 @@ BadStrPath2/GoodStrPath2:
 * FlowEngineBad2: 与FlowEngineBad1类似, 但使用数组和循环实现两个EngExecutor的调用逻辑;
 * FlowEngineBad3: 与FlowEngineBad1类似, 但使用Map和数组实现两个EngExecutor的调用逻辑;
 * FlowEngineBad4: 与FlowEngineBad1类似, 但使用数组和if条件实现两个EngExecutor的调用逻辑;
-* FlowEngineGood1: 与FlowEngineBad1类似, 但先调用CommandEngExecutor, 故没有漏洞
-* FlowEngineGood2: 与FlowEngineBad2 类似, 但先调用CommandEngExecutor, 故没有漏洞
-* FlowEngineGood4: 与 FlowEngineBad4 类似, 但先调用CommandEngExecutor, 故没有漏洞
+* FlowEngineGood1: 与FlowEngineBad1类似, 但先调用CommandEngExecutor, 故没有漏洞；
+* FlowEngineGood2: 与FlowEngineBad2 类似, 但先调用CommandEngExecutor, 故没有漏洞；
+* FlowEngineGood4: 与 FlowEngineBad4 类似, 但先调用CommandEngExecutor, 故没有漏洞；
 
 ## Soundiness
 ### Reflect（top.anemone.taintbenchmark.soundiness.reflect.*）
