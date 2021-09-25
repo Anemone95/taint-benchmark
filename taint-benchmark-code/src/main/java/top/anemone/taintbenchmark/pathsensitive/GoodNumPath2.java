@@ -18,12 +18,12 @@ public class GoodNumPath2 extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source;
+        source = request.getParameter("source");
         int x = new Random().nextInt();
         if (x * (x + 1) % 2 == 0) {
-            source = "clean";
+            return;
         } else {
-            source = request.getParameter("source");
+            Runtime.getRuntime().exec(source);
         }
-        Runtime.getRuntime().exec(source);
     }
 }

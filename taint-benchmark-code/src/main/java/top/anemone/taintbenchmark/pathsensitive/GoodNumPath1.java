@@ -16,12 +16,12 @@ public class GoodNumPath1 extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source;
+        source = request.getParameter("source");
         int x = 86;
         if ((7*42)-x <200){
-            source = "clean";
+            Runtime.getRuntime().exec(source);
         } else {
-            source = request.getParameter("source");
+            return;
         }
-        Runtime.getRuntime().exec(source);
     }
 }

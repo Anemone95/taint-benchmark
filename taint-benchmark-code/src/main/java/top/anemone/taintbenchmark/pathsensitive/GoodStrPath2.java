@@ -17,12 +17,12 @@ public class GoodStrPath2 extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source;
+        source = request.getParameter("source");
         String x = "AB";
         if (x.charAt(0) == 'A') {
-            source = "clean";
+            return;
         } else {
-            source = request.getParameter("source");
+            Runtime.getRuntime().exec(source);
         }
-        Runtime.getRuntime().exec(source);
     }
 }
