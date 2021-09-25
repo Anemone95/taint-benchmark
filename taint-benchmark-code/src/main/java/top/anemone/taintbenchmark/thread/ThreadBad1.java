@@ -24,11 +24,10 @@ class ContentWriter implements Runnable{
     }
 }
 
-class RespWriter implements Runnable{
+class RceRunner implements Runnable{
     private PrintWriter writer;
     private Container<String> container;
-    public RespWriter(PrintWriter writer, Container<String> container){
-        this.writer=writer;
+    public RceRunner( Container<String> container){
         this.container=container;
     }
 
@@ -36,7 +35,11 @@ class RespWriter implements Runnable{
     public void run() {
         while (true){
             if (container.getObj()!=null){
-                writer.println(container.getObj()); //sink
+                try {
+                    Runtime.getRuntime().exec(container.getObj());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
@@ -52,9 +55,9 @@ public class ThreadBad1 extends HttpServlet {
         String source = request.getParameter("xss");
         response.setContentType("text/html;");
         Container<String> cache=new Container<>();
-        RespWriter respWriter=new RespWriter(response.getWriter(), cache);
+        RceRunner rceRunner =new RceRunner(cache);
         ContentWriter contentWriter=new ContentWriter(cache, source);
-        Thread t1=new Thread(respWriter);
+        Thread t1=new Thread(rceRunner);
         t1.start();
         Thread t2=new Thread(contentWriter);
         t2.start();

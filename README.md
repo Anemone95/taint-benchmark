@@ -69,10 +69,12 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * PrivateGood1：source通过私有函数good()函数清除污点，在sink点调用；
 * StaticBad1：source通过静态函数bad()函数传递，在sink点调用；
 * StaticGood1：source通过静态函数good()函数清除污点，在sink点调用；
+* StaticBad2: 
 * AbstractBad1/AbstractGood1：初始化BadPasser/GoodPasser传递污点，在sink点调用；
 * ConstructBad1/ConstructGood1：初始化BadConstructor/GoodConstructor传递污点，在sink点调用；
 * InterfaceBad1/InterfaceGood1：初始化BadTransformer/GoodTransformer传递污点，在sink点调用；
 * InterfaceBad2/InterfaceGood2：构造匿名transformer，匿名transformer传递/不传递污点，在sink点调用；
+* InterfaceBad3/InterfaceGood3: 
 * PointerBad1：构造Container c且c.obj->"clean"，构造Container fakeGood且fakeGood.obj->c，构造Container bad且bad.obj->c，将bad.obj.obj->source，并在sink点取fakeGood.obj.obj；
 * PointerGood1：构造Container c且c.obj->source；构造Container good，good.obj->c；构造Container bad，bad.obj->c；将good.obj.obj->"clean"，并在sink点取bad.obj.obj；
 
@@ -113,6 +115,12 @@ BadPasser和GoodPasser都实现transform方法，区别在于其返回/不返回
 * FlowFieldGood7：初始化装载source和安全数据的container，之后交换，在sink点获取安全数据container；
 * FactoryBad1: 通过工厂方法获取BadTransformer，传递污点；
 * FactoryGood1: 通过工厂方法获取GoodTransformer，不传递污点；
+
+## 路径敏感
+ 
+BadNumPath1/GoodNumPath1: Non-linear Mixed Boolean-Arithmetic Expressions
+BadNumPath2/GoodNumPath2:
+BadStrPath2/GoodStrPath2:
 
 ## 容器类型(top.anemone.taintbenchmark.container.*)
 
