@@ -24,7 +24,7 @@ public class HeapGood1 extends HttpServlet {
 
         
         
-        Runtime.getRuntime().exec(good.getObj()); // sink
+        Runtime.getRuntime().exec((String) good.getObj()); // sink
     }
 
 

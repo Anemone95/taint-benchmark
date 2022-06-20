@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
@@ -19,11 +20,12 @@ public class RecursionBad1 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String source = request.getParameter("source"); // source
         
-        
-        bad(source, out, 0);
+
+
+        bad(source, System.out, 0);
     }
 
-    private void bad(String s, PrintWriter out, int l) {
+    private void bad(String s, PrintStream out, int l) throws IOException {
         if (l>100) return;
         bad(s, out,l+1);
         Runtime.getRuntime().exec(s); // sink

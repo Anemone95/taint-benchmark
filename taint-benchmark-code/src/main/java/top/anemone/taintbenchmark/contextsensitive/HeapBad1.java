@@ -24,7 +24,7 @@ public class HeapBad1 extends HttpServlet {
 
         
         
-        Runtime.getRuntime().exec(bad.getObj()); // sink
+        Runtime.getRuntime().exec((String) bad.getObj()); // sink
     }
 
     private Container newContainer(String s) {
