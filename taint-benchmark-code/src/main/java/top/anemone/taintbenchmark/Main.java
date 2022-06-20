@@ -4,6 +4,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.core.StandardContext;
+import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.util.Set;
 
 
-@WebServlet("/")
 public class Main extends HttpServlet {
 
     @Override
@@ -38,12 +38,19 @@ public class Main extends HttpServlet {
         tomcat.setBaseDir(System.getProperty("user.dir"));
         StandardContext context = new StandardContext();
         // 设置资源路径
-        context.setDocBase(System.getProperty("user.dir") + "\\taint-benchmark-code\\src\\main\\resources");
+        context.setDocBase(System.getProperty("user.dir") + "/taint-benchmark-code/src/main/resources".replace("/", "\\"));
         // 设置应用路径
         context.setPath("/");
         context.addLifecycleListener(new Tomcat.FixContextListener());
         // 将context加入tomcat
         tomcat.getHost().addChild(context);
+        Wrapper testServlet = context.createWrapper();
+        testServlet.setName("DefaultServlet");
+        testServlet.setServletClass(DefaultServlet.class.getCanonicalName());
+        testServlet.addInitParameter("fork", "false");
+        testServlet.addInitParameter("listings", "true");
+        context.addChild(testServlet);
+        context.addServletMapping("/", "DefaultServlet");
 
 
         Reflections reflections = new Reflections("top.anemone.taintbenchmark");

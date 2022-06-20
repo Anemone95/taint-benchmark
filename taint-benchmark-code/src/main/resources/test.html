@@ -1,1 +1,23 @@
-hello ?
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<body>
+<div id="app">
+    <button onclick="btnClick()">Click Me!</button>
+</div>
+<script>
+    function btnClick() {
+        const urlParams = new URLSearchParams(window.location.search);
+        axios.get('/BadBackend', {
+            params: {
+                xss: urlParams.get("xss")
+            }
+        }).then(function (response) {
+            eval(response.data.msg);
+        }).catch(function (error) {
+            console.log(error);
+        }).then(function () {
+            // always executed
+        });
+    }
+
+</script>
+</body>
